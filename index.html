@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>WebRTC 1 to 1 handshake V2</title>  
+  <title>WebRTC 1 to 1 handshake</title>  
 </head>
 <body>
   <button type="button" onclick="startVideo();">Start video</button>
@@ -27,7 +27,7 @@
   
   <p>
    ICE Candidate to send:<br />
-   <textarea id="text-for-send-ice" rows="5" cols="100" disabled="1" onclick="this.focus(); this.select();">ICE Candidate to send</textarea>
+   <textarea id="text-for-send-ice" rows="5" cols="100" disabled="1">ICE Candidate to send</textarea>
   </p>
   <p>  
    ICE Candidates to receive:<br />
@@ -42,7 +42,6 @@
   var localStream = null;
   var peerConnection = null;
   var peerStarted = false;
-  //var mediaConstraints = {'mandatory': {'OfferToReceiveAudio':false, 'OfferToReceiveVideo':true }};
   var mediaConstraints = {'mandatory': {'OfferToReceiveAudio':true, 'OfferToReceiveVideo':true }};
  
   // ----------------- handshake --------------
@@ -58,16 +57,13 @@
  var evt = JSON.parse(text);
  if (peerConnection) {
    onAnswer(evt);
-   
-   textForSendICE.focus();
-   textForSendICE.select();
  }
  else {
    onOffer(evt);
  }
  
  textToReceiveSDP.value ="";
-  }
+  }  
   
   //--- multi ICE candidate ---
   function onICE() {
@@ -79,9 +75,6 @@
     }
  
  textToReceiveICE.value ="";
- 
- textForSendICE.focus();
- textForSendICE.select();
   }
   
   
@@ -111,8 +104,6 @@
  console.log(text);
  
  textForSendSDP.value = text;
- textForSendSDP.focus();
- textForSendSDP.select();
   }
   
   function sendCandidate(candidate) {
